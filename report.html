@@ -3,29 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecochain - New Report</title>
+    <title>Ecochain - Report Pollution</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="report-page-body"> <!-- Added class for specific body styling -->
-    <header>
-        <nav class="container">
-            <a href="index.html" class="logo">
-                <img src="assets/logo.svg" alt="Ecochain Logo">
-                <span>ecochain</span>
+<body class="report-page-body">
+    <header class="page-header">
+        <div class="page-header-container container">
+            <a href="map.html" class="back-button" aria-label="Go back">
+                <img src="assets/arrow-left.svg" alt="Back">
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="map.html">Map</a></li>
-                <li><a href="report.html">Report</a></li>
-                <li><a href="leaderboard.html">Leaderboard</a></li>
-                <li><a href="profile.html">Profile</a></li>
-            </ul>
-            <a href="login.html" class="btn btn-primary nav-cta">Get Started</a>
-            <button class="hamburger" id="hamburger-menu" aria-label="Open menu">
-                <img src="assets/menu.svg" alt="Menu Icon">
-            </button>
-        </nav>
+            <h1>Report Pollution</h1>
+            <div class="header-spacer"></div>
+        </div>
     </header>
 
     <main class="report-form-container container">
@@ -71,15 +61,13 @@
             <button type="submit" class="btn btn-primary btn-submit-report">Submit Report</button>
         </form>
     </main>
-    <div class="bottom-nav-spacer"></div> <!-- Spacer for bottom nav -->
-
+    <div class="bottom-nav-spacer"></div>
 
     <script src="script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-    // --- Hamburger Menu (from landing page, if script is shared) ---
     const hamburgerMenu = document.getElementById('hamburger-menu');
-    const navLinks = document.querySelector('.nav-links'); // This is for the landing page header
+    const navLinks = document.querySelector('.nav-links');
 
     if (hamburgerMenu && navLinks) {
         hamburgerMenu.addEventListener('click', () => {
@@ -100,59 +88,57 @@
         });
     }
 
-    // --- Report Page Specific JavaScript ---
     const reportForm = document.getElementById('reportForm');
     const photoUpload = document.getElementById('photoUpload');
     const photoPreview = document.getElementById('photoPreview');
-    const fileInputText = document.querySelector('.file-input-text'); // Get the span for file name
+    const fileInputText = document.querySelector('.file-input-text');
     const getLocationBtn = document.getElementById('getLocationBtn');
     const locationStatus = document.getElementById('locationStatus');
     const latitudeInput = document.getElementById('latitude');
     const longitudeInput = document.getElementById('longitude');
 
     if (photoUpload && photoPreview && fileInputText) {
-        photoUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
+        photoUpload.addEventListener('change', function() {
+            const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    photoPreview.innerHTML = `<img src="${e.target.result}" alt="Photo preview">`;
+                    photoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    fileInputText.textContent = file.name;
                 }
                 reader.readAsDataURL(file);
-                fileInputText.textContent = file.name; // Update text to show file name
             } else {
-                photoPreview.innerHTML = ''; // Clear preview if no file selected
-                fileInputText.textContent = 'Choose a photo...'; // Reset text
+                photoPreview.innerHTML = '';
+                fileInputText.textContent = 'Choose a photo...';
             }
         });
     }
 
     if (getLocationBtn && locationStatus && latitudeInput && longitudeInput) {
-        getLocationBtn.addEventListener('click', () => {
+        getLocationBtn.addEventListener('click', function() {
+            locationStatus.textContent = 'Getting location...';
+            locationStatus.style.color = '#666';
+
             if (navigator.geolocation) {
-                locationStatus.textContent = 'Fetching location...';
-                getLocationBtn.disabled = true;
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
+                    function(position) {
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         latitudeInput.value = lat;
                         longitudeInput.value = lon;
-                        locationStatus.textContent = `Location captured: Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
-                        locationStatus.style.color = 'var(--accent-green-dark)';
-                        getLocationBtn.disabled = false;
-                        getLocationBtn.textContent = 'Location Acquired';
+                        locationStatus.textContent = `Location obtained: ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+                        locationStatus.style.color = '#4CAF50';
+                        getLocationBtn.textContent = 'Update Location';
                     },
-                    (error) => {
-                        locationStatus.textContent = `Error getting location: ${error.message}`;
-                        locationStatus.style.color = 'red';
-                        getLocationBtn.disabled = false;
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                    function(error) {
+                        console.error('Error getting location:', error);
+                        locationStatus.textContent = 'Error getting location. Please try again.';
+                        locationStatus.style.color = '#FF3B30';
+                    }
                 );
             } else {
                 locationStatus.textContent = 'Geolocation is not supported by your browser.';
-                locationStatus.style.color = 'red';
+                locationStatus.style.color = '#FF3B30';
             }
         });
     }
@@ -160,7 +146,6 @@
     if (reportForm) {
         reportForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            // Basic validation example (can be expanded)
             const incidentType = document.getElementById('incidentType').value;
             const notes = document.getElementById('notes').value;
 
@@ -174,66 +159,33 @@
             }
 
             console.log('Form submitted!');
-            // Here you would typically send the data to a server
-            // For example, using Fetch API:
-            // const formData = new FormData(reportForm);
-            // fetch('/api/submit-report', {
-            //     method: 'POST',
-            //     body: formData
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log('Success:', data);
-            //     alert('Report submitted successfully!');
-            //     reportForm.reset(); // Reset form fields
-            //     if (photoPreview) photoPreview.innerHTML = ''; // Clear photo preview
-            //     if (fileInputText) fileInputText.textContent = 'Choose a photo...';
-            //     if (locationStatus) locationStatus.textContent = 'Click button to get location';
-            //     if (latitudeInput) latitudeInput.value = '';
-            //     if (longitudeInput) longitudeInput.value = '';
-            // })
-            // .catch((error) => {
-            //     console.error('Error:', error);
-            //     alert('Error submitting report.');
-            // });
-
             alert('Report submitted (simulated)! Check console for data.');
-            // You can get form data like this:
             const formData = new FormData(reportForm);
             for (let [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
-             // Optionally reset form
             reportForm.reset();
             if (photoPreview) photoPreview.innerHTML = '';
             if (fileInputText) fileInputText.textContent = 'Choose a photo...';
             if (locationStatus) {
                 locationStatus.textContent = 'Click button to get location';
-                locationStatus.style.color = '#666'; // reset color
+                locationStatus.style.color = '#666';
             }
             if (latitudeInput) latitudeInput.value = '';
             if (longitudeInput) longitudeInput.value = '';
             if (getLocationBtn) getLocationBtn.textContent = 'Get Current Location';
-
-
         });
     }
-});
-</script>
-
-
-    
+    });
+    </script>
 </body>
 
 <style>
-/* --- Report Page Specific Styles --- */
-
-/* Apply light green background like the landing page's hero to the report page body */
 body.report-page-body {
     background-color: var(--bg-light-green);
     color: var(--text-dark);
-    padding-top: 70px; /* Space for fixed page-header */
-    padding-bottom: 80px; /* Space for fixed bottom-nav */
+    padding-top: 70px;
+    padding-bottom: 80px;
 }
 
 .page-header {
@@ -259,24 +211,25 @@ body.report-page-body {
     font-weight: 600;
     text-align: center;
     flex-grow: 1;
-    margin: 0; /* Reset margin */
+    margin: 0;
 }
 
 .back-button {
     color: var(--text-light);
-    font-size: 1.8rem; /* Make arrow larger */
+    font-size: 1.8rem;
     line-height: 1;
     padding: 5px;
 }
+
 .back-button img {
     width: 24px;
     height: 24px;
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(200%);
 }
-.header-spacer {
-    width: 34px; /* Approx width of back button + padding to balance title */
-}
 
+.header-spacer {
+    width: 34px;
+}
 
 .report-form-container {
     padding-top: 20px;
@@ -284,7 +237,7 @@ body.report-page-body {
 }
 
 #reportForm {
-    background-color: #fff; /* White card for the form */
+    background-color: #fff;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -319,13 +272,12 @@ body.report-page-body {
 }
 
 .form-group select {
-    appearance: none; /* For custom arrow if desired */
+    appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 15px center;
     background-size: 16px;
 }
-
 
 .form-group textarea {
     resize: vertical;
@@ -342,7 +294,6 @@ body.report-page-body {
     box-shadow: 0 0 0 2px rgba(92, 124, 61, 0.2);
 }
 
-/* File input specific styling */
 .file-input-wrapper {
     display: flex;
     align-items: center;
@@ -351,16 +302,17 @@ body.report-page-body {
     padding: 10px 15px;
     background-color: #f9f9f9;
     cursor: pointer;
-    position: relative; /* For pseudo-element if needed */
+    position: relative;
 }
+
 .file-input-wrapper .input-icon {
     width: 20px;
     height: 20px;
     margin-right: 10px;
     opacity: 0.7;
 }
+
 .file-input-wrapper input[type="file"] {
-    /* Hide the default file input */
     opacity: 0;
     position: absolute;
     left: 0;
@@ -369,6 +321,7 @@ body.report-page-body {
     height: 100%;
     cursor: pointer;
 }
+
 .file-input-text {
     color: #555;
     font-size: 0.95rem;
@@ -377,6 +330,7 @@ body.report-page-body {
 .photo-preview {
     margin-top: 10px;
 }
+
 .photo-preview img {
     max-width: 100px;
     max-height: 100px;
@@ -385,30 +339,31 @@ body.report-page-body {
     object-fit: cover;
 }
 
-/* Location input styling */
 .location-input-wrapper {
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
 .location-input-wrapper .input-icon {
      width: 20px;
     height: 20px;
     opacity: 0.7;
 }
+
 #getLocationBtn {
-    padding: 10px 15px; /* Adjusted padding */
+    padding: 10px 15px;
     font-size: 0.9rem;
-    flex-grow: 1; /* Allow button to take available space */
-    background-color: #f0f0f0; /* Lighter for less emphasis initially */
+    flex-grow: 1;
+    background-color: #f0f0f0;
     border-color: #ccc;
     color: #333;
 }
+
 #getLocationBtn:hover {
     background-color: #e0e0e0;
     border-color: #bbb;
 }
-
 
 .location-status-text {
     font-size: 0.85rem;
@@ -420,17 +375,16 @@ body.report-page-body {
     width: 100%;
     padding: 15px;
     font-size: 1.1rem;
-    margin-top: 10px; /* Add some space above submit button */
-    background-color: var(--accent-green-dark); /* Use the darker green for primary action */
+    margin-top: 10px;
+    background-color: var(--accent-green-dark);
     border-color: var(--accent-green-dark);
 }
+
 .btn-submit-report:hover {
-    background-color: #4a6630; /* Darken on hover */
+    background-color: #4a6630;
     border-color: #4a6630;
 }
 
-
-/* Bottom Navigation */
 .bottom-nav {
     background-color: var(--bg-dark);
     color: var(--text-light);
@@ -444,72 +398,6 @@ body.report-page-body {
     width: 100%;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     z-index: 990;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #b0b0b0; /* Muted color for inactive items */
-    font-size: 0.75rem;
-    text-align: center;
-    flex-grow: 1;
-    padding: 5px 0;
-}
-
-.nav-item img {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 4px;
-    /* Default filter for inactive icons (make them appear light gray) */
-    filter: invert(75%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(90%);
-    transition: filter 0.3s ease;
-}
-
-.nav-item.active {
-    color: var(--accent-green-bright); /* Bright green for active text */
-}
-
-.nav-item.active img {
-    filter: none; /* Remove filter for active icon if it's already colored */
-    /* Or apply a specific filter to make it green if the SVG is monochrome */
-    /* Example: filter: invert(68%) sepia(61%) saturate(487%) hue-rotate(38deg) brightness(96%) contrast(86%); */
-}
-.nav-item.active .icon-report-active { /* Specific for the plus-circle.svg I designed */
-    filter: none; /* No filter needed as it's pre-colored */
-    width: 32px; /* Slightly larger for emphasis */
-    height: 32px;
-    margin-bottom: 0;
-    transform: translateY(-2px); /* Adjust vertical alignment */
-}
-.nav-item.active span {
-    margin-top: 0; /* Adjust if icon-report-active is larger */
-}
-.nav-item:hover img {
-    filter: invert(90%) sepia(10%) saturate(100%) hue-rotate(180deg) brightness(110%) contrast(90%); /* Slightly brighter on hover */
-}
-.nav-item:hover span {
-    color: var(--text-light);
-}
-
-.bottom-nav-spacer {
-    height: 70px; /* Adjust based on .bottom-nav height */
-}
-
-/* Utility classes from template, if needed */
-.d-flex { display: flex; }
-.align-center { align-items: center; }
-.text-muted { color: #6c757d; } /* Bootstrap's muted color */
-.mt-1 { margin-top: 0.25rem; }
-
-/* Fade-in animation (if not already globally defined) */
-.fade-in {
-    animation: fadeInAnimation 0.5s ease-in-out forwards;
-}
-@keyframes fadeInAnimation {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </html>
