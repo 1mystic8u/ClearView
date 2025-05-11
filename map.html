@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecochain - Pollution Map</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+</head>
+<body class="report-page-body"> <!-- Reusing this class for similar background -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Ecochain Logo">
+                <span>ecochain</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <a href="login.html" class="btn btn-primary nav-cta">Get Started</a>
+            <button class="hamburger" id="hamburger-menu" aria-label="Open menu">
+                <img src="assets/menu.svg" alt="Menu Icon">
+            </button>
+        </nav>
+    </header>
+
+    <main class="map-container-main">
+        <div id="pollutionMap" class="fade-in">
+            <!-- Map will be initialized here by JS -->
+        </div>
+    </main>
+
+    <a href="report.html" class="fab" aria-label="Add new report">
+        <img src="assets/plus.svg" alt="Add report">
+    </a>
+
+    <!-- Example Filter Panel (Hidden by default) -->
+    <aside class="filter-panel" id="filterPanel">
+        <div class="filter-panel-header">
+            <h3>Filter Incidents</h3>
+            <button id="closeFilterPanel" class="close-filter-btn" aria-label="Close filters">×</button>
+        </div>
+        <div class="filter-panel-content">
+            <div class="form-group">
+                <label for="filterIncidentType">Incident Type</label>
+                <select id="filterIncidentType" name="filterIncidentType">
+                    <option value="all">All Types</option>
+                    <option value="water_discharge">Water Discharge</option>
+                    <option value="air_emission">Air Emission / Smoke</option>
+                    <option value="waste_dumping">Waste Dumping</option>
+                    <option value="noise_pollution">Noise Pollution</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="filterDateRange">Date Range</label>
+                <input type="date" id="filterDateStart" name="filterDateStart" class="date-input">
+                <span class="date-separator">to</span>
+                <input type="date" id="filterDateEnd" name="filterDateEnd" class="date-input">
+            </div>
+            <button class="btn btn-primary btn-apply-filters">Apply Filters</button>
+        </div>
+    </aside>
+    <div class="overlay" id="filterOverlay"></div>
+
+
+    <div class="bottom-nav-spacer"></div> <!-- Spacer for bottom nav -->
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+             <img src="assets/home.svg" alt="Home">
+             <span>Home</span>
+        </a>
+        <a href="map.html" class="nav-item active"> <!-- Active state on Map -->
+            <img src="assets/map.svg" alt="Map">
+            <span>Map</span>
+        </a>
+        <a href="report.html" class="nav-item">
+            <img src="assets/plus-circle.svg" alt="Report" class="icon-report-active">
+            <span>Report</span>
+        </a>
+        <a href="#" class="nav-item"> <!-- Assuming login.html is for profile -->
+            <img src="assets/user.svg" alt="Profile">
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <script src="script.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // ... (existing hamburger menu and report page JS)
+
+    // --- Map Page Specific JavaScript ---
+    const pollutionMapElement = document.getElementById('pollutionMap');
+    const openFilterButton = document.getElementById('openFilterPanel');
+    const closeFilterButton = document.getElementById('closeFilterPanel');
+    const filterPanel = document.getElementById('filterPanel');
+    const filterOverlay = document.getElementById('filterOverlay');
+    const applyFiltersButton = document.querySelector('.btn-apply-filters');
+
+
+    if (pollutionMapElement) {
+        // Initialize Leaflet map
+        // Centered on a generic location, zoom level appropriate for a city/region
+        const map = L.map('pollutionMap').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Sample incident data (replace with actual data source)
+        const incidents = [
+            { lat: 51.5, lon: -0.09, type: 'Water Discharge', description: 'Suspicious foam in river.', date: '2023-10-26' },
+            { lat: 51.51, lon: -0.1, type: 'Air Emission', description: 'Black smoke from factory chimney.', date: '2023-10-25' },
+            { lat: 51.495, lon: -0.08, type: 'Waste Dumping', description: 'Construction debris dumped illegally.', date: '2023-10-27' },
+            { lat: 51.505, lon: -0.11, type: 'Noise Pollution', description: 'Loud machinery operating late.', date: '2023-10-26' }
+        ];
+
+        // Function to create custom icons (optional, good for visual distinction)
+        function createIncidentIcon(type) {
+            let iconUrl = 'assets/icons/location-pin.svg'; // Default
+            let iconColor = '#3388ff'; // Default Leaflet blue
+
+            switch(type) {
+                case 'Water Discharge':
+                    iconColor = '#2196F3'; // Blue
+                    // iconUrl = 'assets/icons/water-drop.svg'; // Example custom icon
+                    break;
+                case 'Air Emission':
+                    iconColor = '#757575'; // Grey
+                    // iconUrl = 'assets/icons/wind.svg';
+                    break;
+                case 'Waste Dumping':
+                    iconColor = '#4CAF50'; // Green (using Ecochain green might be good)
+                    // iconUrl = 'assets/icons/trash.svg';
+                    break;
+                case 'Noise Pollution':
+                    iconColor = '#FFC107'; // Amber
+                    // iconUrl = 'assets/icons/volume-up.svg';
+                    break;
+                default:
+                    iconColor = '#9E9E9E'; // Grey for others
+            }
+            // For simplicity, we'll use colored default markers.
+            // To use custom SVG icons with Leaflet: L.icon({ iconUrl: 'path/to/icon.svg', iconSize: [32, 32], ... })
+            // Or, create DIV icons and style them with CSS for more control.
+            // Here's a simple way to make a colored circle marker for now
+            return L.circleMarker([0,0], { // latlng set when adding to map
+                radius: 8,
+                fillColor: iconColor,
+                color: "#fff", // Border color
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            });
+        }
+
+
+        let markersLayer = L.layerGroup().addTo(map); // Layer group to manage markers
+
+        function displayIncidents(incidentArray) {
+            markersLayer.clearLayers(); // Clear existing markers
+
+            incidentArray.forEach(incident => {
+                const marker = L.marker([incident.lat, incident.lon], {
+                    // If using custom icons: icon: createCustomIconForType(incident.type)
+                }).addTo(markersLayer);
+
+                // Create popup content
+                let popupContent = `<h4>${incident.type}</h4>`;
+                popupContent += `<p>${incident.description}</p>`;
+                popupContent += `<small>Date: ${incident.date}</small>`;
+                // Optionally, add a "View Details" link or "Reported by"
+                // popupContent += `<br><a href="/reports/${incident.id}">View Details</a>`;
+
+                marker.bindPopup(popupContent);
+            });
+        }
+
+        displayIncidents(incidents); // Display all incidents initially
+
+
+        // Filter Panel Logic
+        if (openFilterButton && filterPanel && closeFilterButton && filterOverlay) {
+            openFilterButton.addEventListener('click', () => {
+                filterPanel.classList.add('open');
+                filterOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            });
+
+            const closePanel = () => {
+                filterPanel.classList.remove('open');
+                filterOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            closeFilterButton.addEventListener('click', closePanel);
+            filterOverlay.addEventListener('click', closePanel);
+        }
+
+        if (applyFiltersButton) {
+            applyFiltersButton.addEventListener('click', () => {
+                const typeFilter = document.getElementById('filterIncidentType').value;
+                const dateStartFilter = document.getElementById('filterDateStart').value;
+                const dateEndFilter = document.getElementById('filterDateEnd').value;
+
+                console.log("Applying filters:", { typeFilter, dateStartFilter, dateEndFilter });
+
+                let filteredIncidents = incidents.filter(incident => {
+                    let typeMatch = (typeFilter === "all" || incident.type.toLowerCase().replace(/ /g, '_') === typeFilter);
+                    
+                    let dateMatch = true; // Assume true if no dates are set
+                    if (dateStartFilter && dateEndFilter) {
+                        const incidentDate = new Date(incident.date);
+                        const startDate = new Date(dateStartFilter);
+                        const endDate = new Date(dateEndFilter);
+                        dateMatch = incidentDate >= startDate && incidentDate <= endDate;
+                    } else if (dateStartFilter) {
+                        const incidentDate = new Date(incident.date);
+                        const startDate = new Date(dateStartFilter);
+                        dateMatch = incidentDate >= startDate;
+                    } else if (dateEndFilter) {
+                         const incidentDate = new Date(incident.date);
+                         const endDate = new Date(dateEndFilter);
+                         dateMatch = incidentDate <= endDate;
+                    }
+                    
+                    return typeMatch && dateMatch;
+                });
+                
+                displayIncidents(filteredIncidents);
+                filterPanel.classList.remove('open'); // Close panel after applying
+                filterOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+    }
+    // ... (rest of your script.js, if any, like reportForm submission)
+});
+</script>
+</body>
+
+<style>
+/* --- Map Page Specific Styles --- */
+
+/* Reusing report-page-body for background, header from previous styles */
+
+.page-header .filter-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    padding: 5px;
+    cursor: pointer;
+    margin-left: auto; /* Pushes it to the right */
+}
+.page-header .filter-button img {
+    width: 22px;
+    height: 22px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(200%);
+}
+
+.map-container-main {
+    /* This class is mostly for semantic grouping, actual map div is styled below */
+    /* Ensure it doesn't add extra padding if container class is used on body/parent */
+    padding: 0; /* Reset padding if .container is used elsewhere with padding */
+    height: calc(100vh - var(--header-height) - 70px); /* Full height minus header and bottom nav height approx */
+    /* header-height is 70px (from page-header) and bottom-nav is approx 70px */
+}
+
+#pollutionMap {
+    width: 100%;
+    height: 100%; /* Takes full height of its parent .map-container-main */
+    /* background-color: #e0e0e0;  A light fallback if map tiles don't load */
+    z-index: 10; /* Ensure map is below FAB and header */
+}
+
+/* Styling for Leaflet popups to match theme */
+.leaflet-popup-content-wrapper {
+    background-color: #ffffff; /* White background for popup */
+    color: var(--text-dark);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+.leaflet-popup-content {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+.leaflet-popup-content h<strong>4</strong> { /* Changed from h3 to h4 for better semantics */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-green-dark);
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+.leaflet-popup-tip {
+    background-color: #ffffff;
+}
+.leaflet-popup-close-button {
+    color: var(--text-dark) !important; /* Override leaflet's default */
+    padding: 8px 8px 0 0 !important;
+}
+.leaflet-popup-close-button:hover {
+    color: var(--accent-green-dark) !important;
+    background: none !important;
+}
+
+
+.fab { /* Floating Action Button */
+    position: fixed;
+    bottom: 95px; /* Adjust to be above bottom nav (default 70px + 25px spacing) */
+    right: 25px;
+    background-color: var(--accent-green-dark); /* Use a theme color */
+    color: var(--text-light);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    text-decoration: none;
+    z-index: 995; /* Above map, below filter panel if it's modal */
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease;
+}
+.fab img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(200%);
+}
+
+.fab:hover {
+    transform: scale(1.05);
+    background-color: #4a6630; /* Darken accent-green-dark */
+}
+
+/* Filter Panel Styles */
+.filter-panel {
+    position: fixed;
+    top: 0;
+    right: -350px; /* Start off-screen */
+    width: 320px;
+    max-width: 90%;
+    height: 100%;
+    background-color: #fff; /* White background */
+    color: var(--text-dark);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+    z-index: 1005; /* Above FAB and map */
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--header-height); /* Align content below main page header */
+}
+
+.filter-panel.open {
+    right: 0;
+}
+
+.filter-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f7f7f7; /* Light grey header for panel */
+}
+
+.filter-panel-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.close-filter-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #777;
+    cursor: pointer;
+    padding: 5px;
+}
+.close-filter-btn:hover {
+    color: var(--text-dark);
+}
+
+.filter-panel-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+.filter-panel .form-group { /* Reuse form-group styling */
+    margin-bottom: 18px;
+}
+.filter-panel .form-group label {
+    font-size: 0.9rem;
+    color: #444;
+}
+.filter-panel .form-group select,
+.filter-panel .form-group .date-input {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    background-color: #fff; /* Ensure white background for inputs inside panel */
+}
+.filter-panel .date-input {
+    width: calc(50% - 10px); /* For two date inputs in a row */
+    display: inline-block;
+}
+.filter-panel .date-separator {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.btn-apply-filters {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-top: 15px;
+    background-color: var(--accent-green-dark);
+    border-color: var(--accent-green-dark);
+}
+.btn-apply-filters:hover {
+    background-color: #4a6630;
+    border-color: #4a6630;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 1000; /* Below filter panel, above everything else */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Ensure bottom nav active state for map page */
+.bottom-nav .nav-item.active img[alt="Map"] {
+    filter: invert(68%) sepia(61%) saturate(487%) hue-rotate(38deg) brightness(96%) contrast(86%); /* Ecochain bright green */
+}
+/* Remove specific filter for report icon if it's not active on this page */
+.bottom-nav .nav-item:not(.active) .icon-report-active {
+    filter: invert(75%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(90%);
+}
+
+
+@media (max-width: 768px) {
+    .map-container-main {
+        /* Adjust height calculation if header/nav sizes change for mobile */
+         height: calc(100vh - 60px - 60px); /* Example if header/nav are smaller */
+    }
+    .fab {
+        bottom: 80px; /* Adjust if bottom nav height changes */
+        right: 15px;
+        width: 50px;
+        height: 50px;
+    }
+    .fab img {
+        width: 20px;
+        height: 20px;
+    }
+    .filter-panel {
+        padding-top: 60px; /* If header is smaller on mobile */
+    }
+}
+</style>
+</html>

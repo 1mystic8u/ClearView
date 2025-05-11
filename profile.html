@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecochain - My Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="profile-page-body"> <!-- Specific class for profile page bg -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Ecochain Logo">
+                <span>ecochain</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <a href="login.html" class="btn btn-primary nav-cta">Get Started</a>
+            <button class="hamburger" id="hamburger-menu" aria-label="Open menu">
+                <img src="assets/menu.svg" alt="Menu Icon">
+            </button>
+        </nav>
+    </header>
+
+    <main class="profile-main-content container">
+        <section class="profile-user-info">
+            <img src="assets/avatar-placeholder.png" alt="Tomas Anderson" class="profile-avatar"> <!-- Replace with actual avatar -->
+            <h2>Tomas Anderson</h2>
+            <p class="user-email">tomas.anderson@example.com</p>
+        </section>
+
+        <section class="profile-quick-stats">
+            <div class="stat-card eco-score-card">
+                <img src="assets/leaf.svg" alt="Eco Score" class="stat-icon">
+                <span class="stat-value">3492</span>
+                <span class="stat-label">Eco Score</span>
+            </div>
+            <div class="stat-card consumption-card">
+                <img src="assets/bolt.svg" alt="Consumption" class="stat-icon">
+                <span class="stat-value">109</span>
+                <span class="stat-label">Consumption</span>
+            </div>
+            <div class="stat-card carbon-footprint-card">
+                <img src="assets/footprints.svg" alt="Carbon Footprint" class="stat-icon">
+                <span class="stat-value">109</span>
+                <span class="stat-label">Carbon Footprint</span>
+            </div>
+            <div class="stat-card charity-card">
+                <img src="assets/gift.svg" alt="Charity" class="stat-icon">
+                <span class="stat-value">38</span>
+                <span class="stat-label">Contributions</span>
+            </div>
+        </section>
+
+        <section class="profile-recent-activity">
+            <div class="section-header">
+                <h3>Recent Activity</h3>
+                <a href="#" class="see-all-link">See all <img src="assets/chevron-right.svg" alt=""></a>
+            </div>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="activity-icon-bg transport">
+                        <img src="assets/public-transport.svg" alt="Transport">
+                    </div>
+                    <div class="activity-details">
+                        <span class="activity-title">Public transport usage</span>
+                        <span class="activity-sub">You have traveled 7 miles</span>
+                    </div>
+                    <div class="activity-timestamp">
+                        <span class="activity-day">Today</span>
+                        <span class="activity-time">2:57 PM</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon-bg energy">
+                        <img src="assets/bolt.svg" alt="Energy">
+                    </div>
+                    <div class="activity-details">
+                        <span class="activity-title">Energy efficient appliance</span>
+                        <span class="activity-sub">Used for 2 hours</span>
+                    </div>
+                    <div class="activity-timestamp">
+                        <span class="activity-day">Today</span>
+                        <span class="activity-time">1:30 PM</span>
+                    </div>
+                </li>
+                 <li class="activity-item">
+                    <div class="activity-icon-bg report">
+                        <img src="assets/leaf.svg" alt="Report"> <!-- Or a report icon -->
+                    </div>
+                    <div class="activity-details">
+                        <span class="activity-title">Submitted Pollution Report</span>
+                        <span class="activity-sub">Waste Dumping at Mill St.</span>
+                    </div>
+                    <div class="activity-timestamp">
+                        <span class="activity-day">Yesterday</span>
+                        <span class="activity-time">9:15 AM</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="profile-settings">
+             <div class="section-header">
+                <h3>Settings & Account</h3>
+            </div>
+            <ul class="settings-list">
+                <li><a href="#">
+                    <img src="assets/edit.svg" alt="" class="settings-icon"> Edit Profile
+                    <img src="assets/chevron-right.svg" alt="" class="arrow-right">
+                </a></li>
+                <li><a href="#">
+                    <img src="assets/bell.svg" alt="" class="settings-icon"> Notification Preferences
+                    <img src="assets/chevron-right.svg" alt="" class="arrow-right">
+                </a></li>
+                <li><a href="#">
+                    <img src="assets/shield.svg" alt="" class="settings-icon"> Privacy Settings
+                    <img src="assets/chevron-right.svg" alt="" class="arrow-right">
+                </a></li>
+            </ul>
+        </section>
+
+        <div class="logout-section">
+            <button class="btn btn-logout">
+                <img src="assets/log-out.svg" alt="" class="logout-icon"> Log Out
+            </button>
+        </div>
+
+    </main>
+    <div class="bottom-nav-spacer"></div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+             <img src="assets/home.svg" alt="Home">
+             <span>Home</span>
+        </a>
+        <a href="map.html" class="nav-item">
+            <img src="assets/map.svg" alt="Map">
+            <span>Map</span>
+        </a>
+        <a href="report.html" class="nav-item">
+            <img src="assets/plus-circle.svg" alt="Report" class="icon-report-active">
+            <span>Report</span>
+        </a>
+        <a href="profile.html" class="nav-item active"> <!-- Active state on Profile -->
+            <img src="assets/user.svg" alt="Profile">
+            <span>Profile</span>
+        </a>
+    </nav>
+    <script src="script.js"></script>
+    <script>
+    </script>
+</body>
+<style>
+/* --- Profile Page Specific Styles --- */
+
+/* Using :root variables defined in previous steps (var(--bg-dark) etc.) */
+
+body.profile-page-body {
+    background-color: var(--bg-dark); /* Main app dark background */
+    color: var(--text-light);
+    padding-top: 70px; /* Space for fixed page-header */
+    padding-bottom: 80px; /* Space for fixed bottom-nav */
+}
+
+/* Page Header specific to profile */
+.page-header .icon-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    padding: 5px;
+    cursor: pointer;
+    margin-left: auto; /* Pushes it to the right */
+    position: relative;
+}
+.page-header .icon-button img {
+    width: 22px;
+    height: 22px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(200%);
+}
+.notification-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    background-color: #FF3B30; /* iOS red for notification */
+    border-radius: 50%;
+    border: 1px solid var(--bg-dark);
+}
+
+
+.profile-main-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-user-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-green-bright); /* Green border like app elements */
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+.profile-user-info h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-light);
+}
+.profile-user-info .user-email {
+    font-size: 0.95rem;
+    color: #a0a0a0; /* Lighter grey */
+}
+
+.profile-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #2C2C2E; /* iOS dark card background */
+    padding: 20px 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start */
+    text-align: left;
+    color: var(--text-light);
+    min-height: 120px; /* Give cards some height */
+}
+.stat-card .stat-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    line-height: 1.1;
+}
+.stat-card .stat-label {
+    font-size: 0.85rem;
+    color: #c0c0c0;
+    font-weight: 500;
+}
+
+/* Specific card colors from the app UI */
+.stat-card.eco-score-card {
+    background-color: var(--accent-green-bright); /* Bright green */
+    color: var(--text-dark); /* Dark text on light background */
+}
+.stat-card.eco-score-card .stat-icon,
+.stat-card.eco-score-card .stat-label {
+    filter: invert(10%) sepia(10%) saturate(500%) hue-rotate(60deg) brightness(80%) contrast(100%); /* Darken for light bg */
+    color: var(--text-dark);
+}
+
+
+.stat-card.consumption-card .stat-icon {
+    filter: invert(79%) sepia(53%) saturate(3014%) hue-rotate(340deg) brightness(101%) contrast(103%); /* Orange color for bolt */
+}
+
+.stat-card.carbon-footprint-card {
+    background-color: #FF9F0A; /* Orange from app */
+    color: var(--text-dark);
+}
+.stat-card.carbon-footprint-card .stat-icon,
+.stat-card.carbon-footprint-card .stat-label {
+    filter: invert(10%) sepia(10%) saturate(500%) hue-rotate(60deg) brightness(80%) contrast(100%); /* Darken for light bg */
+    color: var(--text-dark);
+}
+
+.stat-card.charity-card .stat-icon {
+    filter: invert(55%) sepia(90%) saturate(377%) hue-rotate(108deg) brightness(92%) contrast(89%); /* Teal/Greenish */
+}
+
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.section-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+.see-all-link {
+    font-size: 0.9rem;
+    color: var(--accent-green-bright);
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+.see-all-link img {
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    filter: invert(77%) sepia(45%) saturate(626%) hue-rotate(37deg) brightness(94%) contrast(89%); /* Make chevron green */
+}
+
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.activity-item {
+    background-color: #2C2C2E; /* iOS dark card background */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.activity-icon-bg {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.activity-icon-bg img {
+    width: 22px;
+    height: 22px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(200%); /* White icon */
+}
+.activity-icon-bg.transport { background-color: #FF3B30; } /* Red for transport */
+.activity-icon-bg.energy { background-color: #FF9500; } /* Orange for energy */
+.activity-icon-bg.report { background-color: var(--accent-green-bright); } /* Green for report/positive action */
+
+
+.activity-details {
+    flex-grow: 1;
+}
+.activity-title {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 2px;
+}
+.activity-sub {
+    display: block;
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
+.activity-timestamp {
+    text-align: right;
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    flex-shrink: 0;
+}
+.activity-timestamp .activity-day {
+    display: block;
+    font-weight: 500;
+    color: #c0c0c0;
+}
+
+
+.profile-settings {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.settings-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #2C2C2E; /* Card background for the list */
+    border-radius: 10px;
+}
+.settings-list li {
+    border-bottom: 1px solid #3A3A3C; /* Separator, slightly lighter than card border */
+}
+.settings-list li:last-child {
+    border-bottom: none;
+}
+.settings-list li a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+.settings-list li a:hover {
+    background-color: #3A3A3C; /* Hover state */
+}
+.settings-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    filter: invert(70%) sepia(0%) saturate(100%) hue-rotate(170deg) brightness(100%) contrast(80%); /* Greyish icons */
+}
+.arrow-right {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    filter: invert(50%) sepia(0%) saturate(100%) hue-rotate(170deg) brightness(100%) contrast(80%); /* Darker grey for arrow */
+}
+
+.logout-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.btn-logout {
+    background-color: #3A3A3C; /* Darker grey for logout button */
+    color: #FF453A; /* Red text for destructive action */
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    width: 100%; /* Make it full width like a list item */
+    justify-content: center; /* Center content within button */
+}
+.btn-logout:hover {
+    background-color: #48484A;
+}
+.logout-icon {
+    width: 18px;
+    height: 18px;
+    filter: invert(48%) sepia(33%) saturate(3041%) hue-rotate(330deg) brightness(100%) contrast(102%); /* Make icon red */
+}
+
+
+/* Bottom Nav Active State for Profile */
+.bottom-nav .nav-item.active img[alt="Profile"] {
+    filter: invert(68%) sepia(61%) saturate(487%) hue-rotate(38deg) brightness(96%) contrast(86%); /* Ecochain bright green */
+}
+/* Remove specific filter for report icon if it's not active on this page */
+.bottom-nav .nav-item:not(.active) .icon-report-active {
+    /* Reset to default inactive icon filter or specific grey */
+    filter: invert(75%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(90%);
+}
+</style>
+</html>

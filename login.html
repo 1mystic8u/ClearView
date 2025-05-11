@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecochain - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page-body">
+
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Ecochain Logo">
+                <span>ecochain</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <a href="login.html" class="btn btn-primary nav-cta">Get Started</a>
+            <button class="hamburger" id="hamburger-menu" aria-label="Open menu">
+                <img src="assets/menu.svg" alt="Menu Icon">
+            </button>
+        </nav>
+    </header>
+
+    <div class="auth-container">
+        <a href="index.html" class="auth-logo-link">
+            <img src="assets/logo.svg" alt="Ecochain Logo" class="auth-logo-img">
+            <span class="auth-logo-text">ecochain</span>
+        </a>
+
+        <div class="auth-toggle">
+            <button class="toggle-btn active" id="showLogin">Login</button>
+            <button class="toggle-btn" id="showRegister">Sign Up</button>
+        </div>
+
+        <div class="form-wrapper" id="loginFormWrapper">
+            <h2>Welcome Back!</h2>
+            <p class="form-subtitle">Login to continue your eco-journey.</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group password-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle" aria-label="Show password">
+                        <img src="assets/eye.svg" alt="Show">
+                    </button>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="rememberMe"> Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit-btn">Login</button>
+            </form>
+            <div class="social-login">
+                <p class="social-login-text"><span>Or continue with</span></p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><img src="assets/google.svg" alt="Google"></a>
+                    <a href="#" class="social-icon"><img src="assets/facebook.svg" alt="Facebook"></a>
+                    <a href="#" class="social-icon"><img src="assets/apple.svg" alt="Apple"></a>
+                </div>
+            </div>
+            <p class="switch-form-text">Don't have an account? <button type="button" class="link-btn" id="switchToRegister">Sign up</button></p>
+        </div>
+
+        <div class="form-wrapper" id="registerFormWrapper" style="display: none;">
+            <h2>Create Account</h2>
+            <p class="form-subtitle">Join Ecochain and make a difference!</p>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" name="registerUsername" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group password-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Create a strong password" required>
+                    <button type="button" class="password-toggle" aria-label="Show password">
+                        <img src="assets/eye.svg" alt="Show">
+                    </button>
+                </div>
+                <div class="form-group password-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                     <button type="button" class="password-toggle" aria-label="Show password">
+                        <img src="assets/eye.svg" alt="Show">
+                    </button>
+                </div>
+                 <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="agreeTerms" required> I agree to the <a href="#" target="_blank">Terms & Conditions</a>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit-btn">Sign Up</button>
+            </form>
+             <div class="social-login">
+                <p class="social-login-text"><span>Or sign up with</span></p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><img src="assets/google.svg" alt="Google"></a>
+                    <a href="#" class="social-icon"><img src="assets/facebook.svg" alt="Facebook"></a>
+                    <a href="#" class="social-icon"><img src="assets/apple.svg" alt="Apple"></a>
+                </div>
+            </div>
+            <p class="switch-form-text">Already have an account? <button type="button" class="link-btn" id="switchToLogin">Login</button></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // ... (your existing JS for hamburger, other pages, etc.)
+
+    // --- Auth Page (Login/Register) Specific JavaScript ---
+    const showLoginBtn = document.getElementById('showLogin');
+    const showRegisterBtn = document.getElementById('showRegister');
+    const switchToRegisterBtn = document.getElementById('switchToRegister');
+    const switchToLoginBtn = document.getElementById('switchToLogin');
+
+    const loginFormWrapper = document.getElementById('loginFormWrapper');
+    const registerFormWrapper = document.getElementById('registerFormWrapper');
+
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    function displayLoginForm() {
+        if (loginFormWrapper && registerFormWrapper && showLoginBtn && showRegisterBtn) {
+            loginFormWrapper.style.display = 'block';
+            registerFormWrapper.style.display = 'none';
+            showLoginBtn.classList.add('active');
+            showRegisterBtn.classList.remove('active');
+        }
+    }
+
+    function displayRegisterForm() {
+        if (loginFormWrapper && registerFormWrapper && showLoginBtn && showRegisterBtn) {
+            loginFormWrapper.style.display = 'none';
+            registerFormWrapper.style.display = 'block';
+            showLoginBtn.classList.remove('active');
+            showRegisterBtn.classList.add('active');
+        }
+    }
+
+    if (showLoginBtn) {
+        showLoginBtn.addEventListener('click', displayLoginForm);
+    }
+    if (showRegisterBtn) {
+        showRegisterBtn.addEventListener('click', displayRegisterForm);
+    }
+    if (switchToRegisterBtn) {
+        switchToRegisterBtn.addEventListener('click', displayRegisterForm);
+    }
+    if (switchToLoginBtn) {
+        switchToLoginBtn.addEventListener('click', displayLoginForm);
+    }
+
+    // Password visibility toggle
+    const passwordToggleButtons = document.querySelectorAll('.password-toggle');
+    passwordToggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const passwordInput = this.previousElementSibling; // The input field
+            const icon = this.querySelector('img');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.src = 'assets/eye-off.svg';
+                icon.alt = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                icon.src = 'assets/eye.svg';
+                icon.alt = 'Show';
+            }
+        });
+    });
+
+
+    // Example form submission handling (replace with actual auth logic)
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Login form submitted');
+            alert('Login attempt (see console). Implement actual login logic.');
+            // Example:
+            // const email = document.getElementById('loginEmail').value;
+            // const password = document.getElementById('loginPassword').value;
+            // authenticateUser(email, password);
+        });
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            console.log('Register form submitted');
+            alert('Registration attempt (see console). Implement actual registration logic.');
+            // Example:
+            // const username = document.getElementById('registerUsername').value;
+            // ...
+            // registerUser(username, email, password);
+        });
+    }
+
+     // Initial state check (in case one form should be shown by default based on URL or other logic)
+    if (loginFormWrapper && registerFormWrapper) { // Ensure elements exist
+        // Default to login form if no specific logic for which to show first
+        if (showLoginBtn && showLoginBtn.classList.contains('active')) {
+             displayLoginForm();
+        } else if (showRegisterBtn && showRegisterBtn.classList.contains('active')) {
+             displayRegisterForm();
+        } else if (showLoginBtn) { // Fallback if no active class is set
+             displayLoginForm();
+        }
+    }
+
+
+}); // End of DOMContentLoaded
+
+</script>
+</body>
+
+<style>
+/* --- Auth Page (Login/Register) Specific Styles --- */
+
+body.auth-page-body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark); /* Default text color for content on white cards */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: var(--font-primary);
+}
+
+.auth-container {
+    background-color: #FFFFFF; /* White card for the form area */
+    padding: 30px 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.auth-logo-link {
+    display: inline-flex; /* Use inline-flex to align items and allow centering */
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 25px;
+}
+.auth-logo-img {
+    width: 32px; /* Adjust size as needed */
+    height: 32px;
+    margin-right: 10px;
+}
+.auth-logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark); /* Logo text color */
+}
+
+
+.auth-toggle {
+    display: flex;
+    background-color: #EFEFF4; /* Light grey for pill background */
+    border-radius: 25px; /* Pill shape */
+    margin-bottom: 25px;
+    padding: 4px;
+    overflow: hidden; /* Ensures inner button borders are clipped */
+}
+.auth-toggle .toggle-btn {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    background-color: transparent;
+    color: #8A8A8E; /* Muted text for inactive */
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 20px; /* Rounded inner buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.auth-toggle .toggle-btn.active {
+    background-color: var(--accent-green-bright); /* Active button color */
+    color: var(--text-dark); /* Text color on active button */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-wrapper h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+.form-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    text-align: left; /* Align labels to the left */
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #333;
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #D1D1D6; /* Light border */
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    color: var(--text-dark);
+    background-color: #F9F9F9; /* Slightly off-white input background */
+}
+.form-group input::placeholder {
+    color: #A0A0A0;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-green-dark);
+    box-shadow: 0 0 0 2px rgba(92, 124, 61, 0.2);
+}
+
+.password-group {
+    position: relative;
+}
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%; /* Center vertically relative to input height after label */
+    transform: translateY(calc(50% - 2px)); /* Adjust for exact centering within input */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+.password-toggle img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+}
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    color: #555;
+    cursor: pointer;
+}
+.checkbox-label input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--accent-green-dark); /* Color for checkbox */
+}
+.forgot-password,
+.checkbox-label a {
+    color: var(--accent-green-dark);
+    text-decoration: none;
+    font-weight: 500;
+}
+.forgot-password:hover,
+.checkbox-label a:hover {
+    text-decoration: underline;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    /* Uses .btn and .btn-primary for base styling */
+    background-color: var(--accent-green-bright);
+    border-color: var(--accent-green-bright);
+    color: var(--text-dark);
+}
+.auth-submit-btn:hover {
+    background-color: #8cc941; /* Darken var(--accent-green-bright) */
+    border-color: #8cc941;
+}
+
+
+.social-login {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+.social-login-text {
+    font-size: 0.85rem;
+    color: #8A8A8E;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.social-login-text::before,
+.social-login-text::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #E5E5EA;
+}
+.social-login-text span {
+    padding: 0 10px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #E5E5EA;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+.social-icon:hover {
+    background-color: #f0f0f0;
+}
+.social-icon img {
+    width: 22px;
+    height: 22px;
+}
+
+.switch-form-text {
+    font-size: 0.9rem;
+    color: #555;
+}
+.link-btn {
+    background: none;
+    border: none;
+    color: var(--accent-green-dark);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+.link-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 25px 20px;
+        margin-top: 20px; /* Give some space from top on very small screens */
+        margin-bottom: 20px;
+    }
+    .auth-toggle .toggle-btn {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+    .form-wrapper h2 {
+        font-size: 1.6rem;
+    }
+    .form-subtitle {
+        font-size: 0.9rem;
+    }
+    .auth-submit-btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    .social-icons {
+        gap: 15px;
+    }
+    .social-icon {
+        width: 40px;
+        height: 40px;
+    }
+    .social-icon img {
+        width: 20px;
+        height: 20px;
+    }
+}
+</style>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecochain - Leaderboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="leaderboard-page-body"> <!-- Specific class for leaderboard page bg -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="Ecochain Logo">
+                <span>ecochain</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <a href="login.html" class="btn btn-primary nav-cta">Get Started</a>
+            <button class="hamburger" id="hamburger-menu" aria-label="Open menu">
+                <img src="assets/menu.svg" alt="Menu Icon">
+            </button>
+        </nav>
+    </header>
+
+    <main class="leaderboard-main-content container">
+        <div class="leaderboard-toggle">
+            <button class="toggle-btn active" data-period="monthly">Monthly</button>
+            <button class="toggle-btn" data-period="yearly">Yearly</button>
+        </div>
+
+        <section class="leaderboard-podium">
+            <!-- Rank 2 -->
+            <div class="podium-member rank-2">
+                <div class="podium-avatar-container">
+                    <img src="assets/avatars/avatar-2.png" alt="Avelyn" class="podium-avatar">
+                    <span class="podium-rank-badge">2</span>
+                    <img src="assets/icons/crown.svg" alt="Silver Crown" class="podium-crown silver">
+                </div>
+                <span class="podium-name">Avelyn</span>
+                <span class="podium-points">4145 pts</span>
+            </div>
+            <!-- Rank 1 -->
+            <div class="podium-member rank-1">
+                 <div class="podium-avatar-container">
+                    <img src="assets/avatars/avatar-1.png" alt="Ethan" class="podium-avatar">
+                    <span class="podium-rank-badge">1</span>
+                    <img src="assets/icons/crown.svg" alt="Gold Crown" class="podium-crown gold">
+                </div>
+                <span class="podium-name">Ethan</span>
+                <span class="podium-points">4528 pts</span>
+            </div>
+            <!-- Rank 3 -->
+            <div class="podium-member rank-3">
+                 <div class="podium-avatar-container">
+                    <img src="assets/avatars/avatar-3.png" alt="Sara" class="podium-avatar">
+                    <span class="podium-rank-badge">3</span>
+                    <img src="assets/icons/crown.svg" alt="Bronze Crown" class="podium-crown bronze">
+                </div>
+                <span class="podium-name">Sara</span>
+                <span class="podium-points">3954 pts</span>
+            </div>
+        </section>
+
+        <section class="leaderboard-list-section">
+            <ul class="leaderboard-list">
+                <!-- Item 4 -->
+                <li class="leaderboard-item">
+                    <span class="item-rank">4</span>
+                    <img src="assets/avatars/avatar-4.png" alt="Kian Mitchell" class="item-avatar">
+                    <div class="item-details">
+                        <span class="item-name">Kian Mitchell</span>
+                        <span class="item-sub">You have traveled 7 miles</span>
+                    </div>
+                    <div class="item-trend up">
+                        <img src="assets/icons/arrow-up-trend.svg" alt="Up">
+                    </div>
+                    <div class="item-points">
+                        <img src="assets/icons/star.svg" alt="Points">
+                        <span>3214</span>
+                    </div>
+                </li>
+                <!-- Item 5 -->
+                <li class="leaderboard-item current-user"> <!-- Example for current user highlight -->
+                    <span class="item-rank">5</span>
+                    <img src="assets/avatars/avatar-5.png" alt="Regina Phalange" class="item-avatar">
+                    <div class="item-details">
+                        <span class="item-name">Regina Phalange (You)</span>
+                        <span class="item-sub">Reduced emissions by 5%</span>
+                    </div>
+                    <div class="item-trend neutral">
+                        <img src="assets/icons/minus-trend.svg" alt="Neutral">
+                    </div>
+                    <div class="item-points">
+                        <img src="assets/icons/star.svg" alt="Points">
+                        <span>3000</span>
+                    </div>
+                </li>
+                <!-- Item 6 -->
+                <li class="leaderboard-item">
+                    <span class="item-rank">6</span>
+                    <img src="assets/avatars/avatar-6.png" alt="Noah Cooper" class="item-avatar">
+                    <div class="item-details">
+                        <span class="item-name">Noah Cooper</span>
+                        <span class="item-sub">Completed 3 green tasks</span>
+                    </div>
+                    <div class="item-trend down">
+                         <img src="assets/icons/arrow-down-trend.svg" alt="Down">
+                    </div>
+                    <div class="item-points">
+                        <img src="assets/icons/star.svg" alt="Points">
+                        <span>2890</span>
+                    </div>
+                </li>
+                <!-- Add more items as needed -->
+            </ul>
+        </section>
+
+    </main>
+    <div class="bottom-nav-spacer"></div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+             <img src="assets/icons/home.svg" alt="Home">
+             <span>Home</span>
+        </a>
+        <a href="map.html" class="nav-item"> <!-- Changed from map.html to profile.html for a 'Stats' like icon -->
+            <img src="assets/icons/stats-chart.svg" alt="Leaderboard"> <!-- Active state for this page -->
+            <span>Stats</span>
+        </a>
+        <a href="report.html" class="nav-item">
+            <img src="assets/icons/plus-circle.svg" alt="Report" class="icon-report-active">
+            <span>Report</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <img src="assets/icons/user.svg" alt="Profile">
+            <span>Profile</span>
+        </a>
+    </nav>
+    <script src="script.js"></script>
+    
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (your existing JS for hamburger, report form, map, profile etc.)
+
+    // --- Leaderboard Page Specific JavaScript ---
+    const leaderboardToggleButtons = document.querySelectorAll('.leaderboard-toggle .toggle-btn');
+    const podiumSection = document.querySelector('.leaderboard-podium');
+    const leaderboardList = document.querySelector('.leaderboard-list');
+
+    if (leaderboardToggleButtons.length > 0 && podiumSection && leaderboardList) {
+        // Sample data - replace with actual API calls
+        const monthlyData = {
+            podium: [
+                { rank: 1, name: 'Ethan M.', avatar: 'assets/avatars/avatar-1.png', points: 4528 },
+                { rank: 2, name: 'Avelyn S.', avatar: 'assets/avatars/avatar-2.png', points: 4145 },
+                { rank: 3, name: 'Sara K.', avatar: 'assets/avatars/avatar-3.png', points: 3954 }
+            ],
+            list: [
+                { rank: 4, name: 'Kian Mitchell', avatar: 'assets/avatars/avatar-4.png', sub: 'Traveled 7 miles', trend: 'up', points: 3214 },
+                { rank: 5, name: 'Regina Phalange (You)', avatar: 'assets/avatars/avatar-5.png', sub: 'Reduced emissions by 5%', trend: 'neutral', points: 3000, currentUser: true },
+                { rank: 6, name: 'Noah Cooper', avatar: 'assets/avatars/avatar-6.png', sub: 'Completed 3 green tasks', trend: 'down', points: 2890 },
+                { rank: 7, name: 'Olivia Chen', avatar: 'assets/avatars/avatar-7.png', sub: 'Used public transport 5 times', trend: 'up', points: 2750 },
+            ]
+        };
+
+        const yearlyData = {
+            podium: [
+                { rank: 1, name: 'Ethan M.', avatar: 'assets/avatars/avatar-1.png', points: 52300 },
+                { rank: 2, name: 'Regina P. (You)', avatar: 'assets/avatars/avatar-5.png', points: 48900, currentUser: true },
+                { rank: 3, name: 'Avelyn S.', avatar: 'assets/avatars/avatar-2.png', points: 45100 }
+            ],
+            list: [
+                { rank: 4, name: 'Noah Cooper', avatar: 'assets/avatars/avatar-6.png', sub: 'Planted 10 trees', trend: 'up', points: 42050 },
+                { rank: 5, name: 'Sara K.', avatar: 'assets/avatars/avatar-3.png', sub: 'Consistent eco-friendly shopping', trend: 'neutral', points: 40800 },
+                { rank: 6, name: 'Kian Mitchell', avatar: 'assets/avatars/avatar-4.png', sub: 'Top recycler', trend: 'up', points: 39500 },
+            ]
+        };
+        
+        function getCrownClass(rank) {
+            if (rank === 1) return 'gold';
+            if (rank === 2) return 'silver';
+            if (rank === 3) return 'bronze';
+            return '';
+        }
+
+        function updateLeaderboardUI(data) {
+            // Update Podium
+            podiumSection.innerHTML = ''; // Clear existing
+            const sortedPodium = data.podium.sort((a, b) => a.rank - b.rank); // Ensure 2, 1, 3 order for display
+            
+            // Re-order for display (2nd, 1st, 3rd)
+            const displayOrder = [
+                sortedPodium.find(p => p.rank === 2),
+                sortedPodium.find(p => p.rank === 1),
+                sortedPodium.find(p => p.rank === 3)
+            ].filter(Boolean); // Filter out undefined if a rank is missing
+
+            displayOrder.forEach(member => {
+                const podiumMemberDiv = document.createElement('div');
+                podiumMemberDiv.className = `podium-member rank-${member.rank}`;
+                podiumMemberDiv.innerHTML = `
+                    <div class="podium-avatar-container">
+                        <img src="${member.avatar}" alt="${member.name}" class="podium-avatar">
+                        <span class="podium-rank-badge">${member.rank}</span>
+                        <img src="assets/icons/crown.svg" alt="${getCrownClass(member.rank)} Crown" class="podium-crown ${getCrownClass(member.rank)}">
+                    </div>
+                    <span class="podium-name">${member.name}</span>
+                    <span class="podium-points">${member.points} pts</span>
+                `;
+                podiumSection.appendChild(podiumMemberDiv);
+            });
+
+
+            // Update List
+            leaderboardList.innerHTML = ''; // Clear existing
+            data.list.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'leaderboard-item';
+                if (item.currentUser) {
+                    listItem.classList.add('current-user');
+                }
+                listItem.innerHTML = `
+                    <span class="item-rank">${item.rank}</span>
+                    <img src="${item.avatar}" alt="${item.name}" class="item-avatar">
+                    <div class="item-details">
+                        <span class="item-name">${item.name}</span>
+                        <span class="item-sub">${item.sub}</span>
+                    </div>
+                    <div class="item-trend ${item.trend}">
+                        <img src="assets/icons/${item.trend === 'up' ? 'arrow-up-trend' : item.trend === 'down' ? 'arrow-down-trend' : 'minus-trend'}.svg" alt="${item.trend}">
+                    </div>
+                    <div class="item-points">
+                        <img src="assets/icons/star.svg" alt="Points">
+                        <span>${item.points}</span>
+                    </div>
+                `;
+                leaderboardList.appendChild(listItem);
+            });
+        }
+
+        leaderboardToggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                leaderboardToggleButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                const period = this.dataset.period;
+                if (period === 'monthly') {
+                    updateLeaderboardUI(monthlyData);
+                } else if (period === 'yearly') {
+                    updateLeaderboardUI(yearlyData);
+                }
+            });
+        });
+
+        // Initial load (default to monthly)
+        updateLeaderboardUI(monthlyData);
+    }
+});
+</script>
+</body>
+
+
+
+
+
+
+<style>
+/* --- Leaderboard Page Specific Styles --- */
+
+body.leaderboard-page-body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding-top: 70px; /* Space for fixed page-header */
+    padding-bottom: 80px; /* Space for fixed bottom-nav */
+}
+
+.leaderboard-main-content {
+    padding-top: 15px;
+}
+
+.leaderboard-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    background-color: #2C2C2E; /* Dark grey like iOS segment control */
+    border-radius: 8px;
+    padding: 4px;
+}
+.leaderboard-toggle .toggle-btn {
+    flex: 1;
+    padding: 8px 15px;
+    border: none;
+    background-color: transparent;
+    color: #a0a0a0; /* Muted text for inactive */
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.leaderboard-toggle .toggle-btn.active {
+    background-color: var(--accent-green-bright);
+    color: var(--text-dark);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.leaderboard-podium {
+    background-color: var(--accent-green-bright);
+    color: var(--text-dark);
+    border-radius: 18px;
+    padding: 20px 15px 25px; /* More padding at bottom */
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; /* Align to bottom for varying heights */
+    text-align: center;
+}
+
+.podium-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.podium-member.rank-1 {
+    transform: translateY(-15px); /* Elevate 1st place */
+}
+.podium-avatar-container {
+    position: relative;
+    margin-bottom: 8px;
+}
+.podium-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff; /* White border around avatar */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.podium-member.rank-1 .podium-avatar {
+    width: 80px;
+    height: 80px;
+}
+.podium-member.rank-2 .podium-avatar,
+.podium-member.rank-3 .podium-avatar {
+    width: 70px;
+    height: 70px;
+}
+.podium-rank-badge {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%) translateY(30%); /* Position slightly below center */
+    background-color: var(--text-dark);
+    color: var(--accent-green-bright);
+    border: 2px solid var(--accent-green-bright);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.podium-member.rank-1 .podium-rank-badge { width: 28px; height: 28px; font-size: 0.9rem; }
+
+.podium-crown {
+    position: absolute;
+    top: -12px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+}
+.podium-member.rank-1 .podium-crown { width: 32px; height: 32px; top: -15px;}
+
+.podium-crown.gold { filter: invert(84%) sepia(27%) saturate(952%) hue-rotate(359deg) brightness(104%) contrast(104%); } /* Goldish yellow */
+.podium-crown.silver { filter: invert(87%) sepia(5%) saturate(296%) hue-rotate(179deg) brightness(92%) contrast(89%); } /* Silvery grey */
+.podium-crown.bronze { filter: invert(51%) sepia(92%) saturate(311%) hue-rotate(342deg) brightness(91%) contrast(90%); } /* Bronze */
+
+
+.podium-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+    color: #333; /* Slightly darker than pure text-dark for readability */
+}
+.podium-member.rank-1 .podium-name { font-size: 1.05rem; }
+
+.podium-points {
+    font-size: 0.85rem;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0.1); /* Subtle bg for points */
+    color: #444;
+    padding: 3px 8px;
+    border-radius: 10px;
+}
+
+.leaderboard-list-section {
+    /* No specific styling for section, list items handle it */
+}
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.leaderboard-item {
+    background-color: #2C2C2E; /* iOS dark card background */
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Smaller gap */
+    color: var(--text-light);
+}
+.leaderboard-item.current-user {
+    background-color: #3A3A3C; /* Slightly different bg for current user */
+    border: 1px solid var(--accent-green-bright);
+}
+
+.item-rank {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #a0a0a0;
+    width: 25px; /* Fixed width for alignment */
+    text-align: center;
+}
+.item-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.item-details {
+    flex-grow: 1;
+}
+.item-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 1px;
+}
+.item-sub {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
+.item-trend {
+    width: 16px;
+    height: 16px;
+    margin: 0 5px; /* Space around trend icon */
+}
+.item-trend img {
+    width: 100%;
+    height: 100%;
+}
+.item-trend.up img { filter: invert(68%) sepia(61%) saturate(487%) hue-rotate(37deg) brightness(94%) contrast(89%); } /* Green */
+.item-trend.down img { filter: invert(41%) sepia(66%) saturate(3017%) hue-rotate(332deg) brightness(98%) contrast(102%); } /* Red */
+.item-trend.neutral img { filter: invert(70%) sepia(0%) saturate(100%) hue-rotate(170deg) brightness(100%) contrast(80%); } /* Grey */
+
+.item-points {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.item-points img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    filter: invert(84%) sepia(27%) saturate(952%) hue-rotate(359deg) brightness(104%) contrast(104%); /* Gold star */
+}
+
+/* Bottom Nav Active State for Leaderboard/Stats page */
+.bottom-nav .nav-item.active img[alt="Leaderboard"] {
+    filter: invert(68%) sepia(61%) saturate(487%) hue-rotate(38deg) brightness(96%) contrast(86%); /* Ecochain bright green */
+}
+/* Reset other potential active states */
+.bottom-nav .nav-item:not(.active) .icon-report-active,
+.bottom-nav .nav-item:not(.active) img[alt="Profile"],
+.bottom-nav .nav-item:not(.active) img[alt="Map"] {
+    filter: invert(75%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(90%);
+}
+
+
+/* Desktop specific styles for Leaderboard */
+@media (min-width: 769px) {
+    .leaderboard-main-content.container {
+        max-width: 700px; /* Narrower container for leaderboard content on desktop */
+    }
+    .leaderboard-toggle {
+        width: 300px; /* Fixed width for toggle on desktop */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .leaderboard-podium {
+        padding: 30px 25px 35px;
+    }
+    .podium-member.rank-1 .podium-avatar {
+        width: 90px;
+        height: 90px;
+    }
+    .podium-member.rank-2 .podium-avatar,
+    .podium-member.rank-3 .podium-avatar {
+        width: 80px;
+        height: 80px;
+    }
+     .podium-member.rank-1 .podium-crown { width: 36px; height: 36px; top: -18px;}
+     .podium-crown { width: 32px; height: 32px; top: -15px;}
+
+     .podium-name { font-size: 1.05rem; }
+     .podium-member.rank-1 .podium-name { font-size: 1.15rem; }
+     .podium-points { font-size: 0.9rem; padding: 4px 10px; }
+}
+
+</style>
+
+
+
+
+</html>
